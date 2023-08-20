@@ -16,5 +16,15 @@ class User(Base):
             f"username={self.username}, " + \
             f"email={self.email}, " \
             + ">"
-        
+    
+class Game(Base):
+    __tablename__ = 'games'
 
+    id = Column(Integer(), primary_key=True)
+    title = Column(String)
+
+    def __repr__(self):
+        return f"\n<Game" + \
+            f"id={self.id}, " + \
+            f"title={self.title}, " + \
+            + ">"
