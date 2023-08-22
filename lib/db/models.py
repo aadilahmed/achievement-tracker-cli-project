@@ -40,3 +40,17 @@ class Game(Base):
             f"id={self.id}, " + \
             f"title={self.title}, " + \
             + ">"
+    
+
+class Achievement(Base):
+    __tablename__ = "achievements"
+
+    id = Column(Integer(), primary_key=True)
+    title = Column(String)
+
+    def __repr__(self):
+        return f"\n<Achievement" + \
+            f"id={self.id}, " + \
+            f"title={self.title}, " + \
+            + ">"
+        
