@@ -47,6 +47,8 @@ class Achievement(Base):
 
     id = Column(Integer(), primary_key=True)
     title = Column(String)
+    description = Column(String)
+    status = Column(String)
 
     def __repr__(self):
         return f"\n<Achievement" + \
