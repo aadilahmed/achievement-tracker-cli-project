@@ -49,6 +49,8 @@ class Achievement(Base):
     title = Column(String)
     description = Column(String)
     status = Column(String)
+    type = Column(String)
+    
 
     def __repr__(self):
         return f"\n<Achievement" + \
