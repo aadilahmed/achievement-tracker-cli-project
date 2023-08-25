@@ -34,6 +34,7 @@ class Game(Base):
     title = Column(String)
 
     users = relationship('User', secondary=user_game, back_populates='games')
+    achievements = relationship('Achievement', backref='game')
 
     def __repr__(self):
         return f"\n<Game" + \
@@ -41,7 +42,6 @@ class Game(Base):
             f"title={self.title}, " + \
             + ">"
     
-
 class Achievement(Base):
     __tablename__ = "achievements"
 
@@ -50,7 +50,7 @@ class Achievement(Base):
     description = Column(String)
     status = Column(String)
     type = Column(String)
-    
+    game_id = Column(Integer(), ForeignKey('games.id'))
 
     def __repr__(self):
         return f"\n<Achievement" + \
