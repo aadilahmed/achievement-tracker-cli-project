@@ -21,7 +21,7 @@ class User(Base):
     games = relationship('Game', secondary=user_game, back_populates='users')
 
     def __repr__(self):
-        return f"\n<User" + \
+        return f"\n<User " + \
             f"id={self.id}, " + \
             f"username={self.username}, " + \
             f"email={self.email}, " \
@@ -37,9 +37,9 @@ class Game(Base):
     achievements = relationship('Achievement', backref='game')
 
     def __repr__(self):
-        return f"\n<Game" + \
+        return f"\n<Game " + \
             f"id={self.id}, " + \
-            f"title={self.title}, " + \
+            f"title={self.title}, " \
             + ">"
     
 class Achievement(Base):
@@ -53,8 +53,11 @@ class Achievement(Base):
     game_id = Column(Integer(), ForeignKey('games.id'))
 
     def __repr__(self):
-        return f"\n<Achievement" + \
+        return f"\n<Achievement " + \
             f"id={self.id}, " + \
             f"title={self.title}, " + \
+            f"description={self.description}, " + \
+            f"status={self.status}, " + \
+            f"type={self.type}, " \
             + ">"
         
