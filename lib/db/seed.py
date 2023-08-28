@@ -12,14 +12,14 @@ session.query(User).delete()
 session.query(Game).delete()
 session.query(Achievement).delete()
 
-users = {
+users = [
     User(username="baby123", email="jake@blah.com"),
     User(username="pandalover", email="cool@gmail.com"),
     User(username="abc", email="123faker@yahoo.com"),
     User(username="jofff", email="john@hotmail.com"),
     User(username="heykky", email="daffyduck@masdf.com"),
     User(username="solaire123", email="Santa324@blah.com")
-}
+]
 
 games = [
     Game(title="The Legend of Zelda: Breath of the Wild"),
@@ -44,14 +44,14 @@ games = [
     Game(title="The Elder Scrolls V: Skyrim")
 ]
 
-achievements = {
+achievements = [
     Achievement(title="Novice Explorer", description="Visited the first location.", status="Unlocked", type="bronze"),
     Achievement(title="Master Craftsman", description="Crafted 100 items.", status="Locked", type="silver"),
     Achievement(title="Legendary Hero", description="Completed the main storyline.", status="Locked", type="gold"),
     Achievement(title="Pacifist", description="Completed a level without harming any enemies.", status="Unlocked", type="silver"),
     Achievement(title="Treasure Hunter", description="Collected all hidden treasures.", status="Locked", type="gold"),
     Achievement(title="Completionist", description="Unlocked all achievements.", status="Locked", type="platinum")
-}
+]
 
 for achievement in achievements:
     achievement.game = rc(games)
