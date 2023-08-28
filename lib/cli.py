@@ -2,6 +2,7 @@ from db.models import User, Game, Achievement
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from simple_term_menu import TerminalMenu
+from prettycli import red
 import re
 
 class Cli():
@@ -24,10 +25,9 @@ class Cli():
         if(re.fullmatch(regex, email)):
             username = input("Please enter a username:")
             password = input("Please enter a password:")
-            """ insert new user into User table """
             new_user = User(username=username, email=email)
         else:
-            print("\n\nInvalid Email\n\n")
+            print(red("\n\nInvalid Email. Please try again.\n\n"))
             self.main()
     
 

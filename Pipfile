@@ -9,6 +9,7 @@ sqlalchemy = "*"
 alembic = "*"
 click = "*"
 simple-term-menu = "*"
+prettycli = "*"
 
 [dev-packages]
 
