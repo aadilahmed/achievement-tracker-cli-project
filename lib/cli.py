@@ -2,6 +2,7 @@ from db.models import User, Game, Achievement
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from simple_term_menu import TerminalMenu
+import re
 
 class Cli():
 
@@ -18,11 +19,16 @@ class Cli():
             self.sign_in()
 
     def create_account(self):
+        regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
         email = input("Please enter your email address: ")
-        username = input("Please enter a username:")
-        password = input("Please enter a password:")
-        """ insert new user into User table """
-        new_user = User(username=username, email=email)
+        if(re.fullmatch(regex, email)):
+            username = input("Please enter a username:")
+            password = input("Please enter a password:")
+            """ insert new user into User table """
+            new_user = User(username=username, email=email)
+        else:
+            print("\n\nInvalid Email\n\n")
+            self.main()
     
 
     def sign_in(self):
