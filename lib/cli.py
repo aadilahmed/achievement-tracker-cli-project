@@ -93,10 +93,10 @@ class Cli():
         if options[menu_entry_index] == "Back":
             self.show_game_list()
         else:
-            self.display_achievement_info()  
+            self.display_achievement_info(options[menu_entry_index])  
 
-    def display_achievement_info(self):
-        pass
+    def display_achievement_info(self, title):
+        pass      
 
     def show_trophy_list(self):
         pass

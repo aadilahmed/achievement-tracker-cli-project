@@ -91,6 +91,11 @@ class Achievement(Base):
     type = Column(String)
     game_id = Column(Integer(), ForeignKey('games.id'))
 
+    @classmethod
+    def find_by_title(cls, title):
+        achievement = session.query(cls).filter(cls.title == title).first()
+        return achievement
+
     def __repr__(self):
         return f"\n<Achievement " + \
             f"id={self.id}, " + \
