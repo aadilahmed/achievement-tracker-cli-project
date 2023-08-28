@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Table, ForeignKey, create_engine
-from sqlalchemy.orm import declarative_base, relationship, backref, sessionmaker
+from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 
 Base = declarative_base()
 
@@ -51,6 +51,19 @@ class Game(Base):
 
     users = relationship('User', secondary=user_game, back_populates='games')
     achievements = relationship('Achievement', backref='game')
+
+    @classmethod
+    def get_games(cls):
+        games = session.query(cls).all()
+        return games
+    
+    @classmethod
+    def append_games_to_user(cls, user, game_ids):
+        for id in game_ids:
+            game = session.query(cls).filter(cls.id == id+1).first()
+            if game not in user.games:
+                user.games.append(game)
+        session.commit()
 
     def __repr__(self):
         return f"\n<Game " + \
