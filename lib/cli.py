@@ -55,13 +55,21 @@ class Cli():
 
 
     def show_game_list(self):
-        print("My Game List\n\n")
+        print("\n\nMy Game List\n\n")
+        games = self.current_user.games
+        options = [game.title for game in games]
+        options.append("Back")
+        terminal_menu = TerminalMenu(options)
+        menu_entry_index = terminal_menu.show()
 
-
+        if options[menu_entry_index] == "Back":
+            self.user_menu(self.current_user)
+        else:
+            self.show_game_achievements(options[menu_entry_index])
 
     def show_all_games(self):
         # print all the games in the games table to the terminal
-        games = Game.get_games()
+        games = Game.get_all_games()
         terminal_menu = TerminalMenu(
         [game.title for game in games],
         multi_select=True,
@@ -74,6 +82,21 @@ class Cli():
         Game.append_games_to_user(self.current_user, menu_entry_indices)
         self.user_menu(self.current_user)
 
+    def show_game_achievements(self, game):
+        print(f"\n\n{game} Achievements\n")
+        achievements = Game.get_all_achievements(game)
+        options = [achievement.title for achievement in achievements]
+        options.append("Back")
+        terminal_menu = TerminalMenu(options)
+        menu_entry_index = terminal_menu.show()
+
+        if options[menu_entry_index] == "Back":
+            self.show_game_list()
+        else:
+            self.display_achievement_info()  
+
+    def display_achievement_info(self):
+        pass
 
     def show_trophy_list(self):
         pass

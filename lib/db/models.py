@@ -43,6 +43,8 @@ class User(Base):
             f"email={self.email}, " \
             + ">"
     
+
+
 class Game(Base):
     __tablename__ = 'games'
 
@@ -53,7 +55,7 @@ class Game(Base):
     achievements = relationship('Achievement', backref='game')
 
     @classmethod
-    def get_games(cls):
+    def get_all_games(cls):
         games = session.query(cls).all()
         return games
     
@@ -65,12 +67,20 @@ class Game(Base):
                 user.games.append(game)
         session.commit()
 
+    @classmethod
+    def get_all_achievements(cls, game):
+        game = session.query(cls).filter(cls.title == game).first()
+        return game.achievements
+
+
     def __repr__(self):
         return f"\n<Game " + \
             f"id={self.id}, " + \
             f"title={self.title}, " \
             + ">"
     
+
+
 class Achievement(Base):
     __tablename__ = "achievements"
 
