@@ -96,7 +96,9 @@ class Cli():
             self.display_achievement_info(options[menu_entry_index])  
 
     def display_achievement_info(self, title):
-        pass      
+        achievement = Achievement.find_by_title(title)
+        print(f"{achievement.title} : {achievement.status}") 
+        print(f"{achievement.description}")       
 
     def show_trophy_list(self):
         pass
