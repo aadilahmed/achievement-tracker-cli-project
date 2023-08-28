@@ -1,7 +1,12 @@
-from sqlalchemy import Column, Integer, String, Table, ForeignKey
-from sqlalchemy.orm import declarative_base, relationship, backref
+from sqlalchemy import Column, Integer, String, Table, ForeignKey, create_engine
+from sqlalchemy.orm import declarative_base, relationship, backref, sessionmaker
 
 Base = declarative_base()
+
+engine = create_engine('sqlite:///db/data.db')
+
+Session = sessionmaker(bind=engine)
+session = Session()
 
 user_game = Table(
     'user_games',
@@ -19,6 +24,17 @@ class User(Base):
     email = Column(String(55))
 
     games = relationship('Game', secondary=user_game, back_populates='users')
+
+    @classmethod
+    def find_or_create_by(cls, username, email):
+        user = session.query(cls).filter(cls.email.like(email)).first()
+        if user:
+            return user
+        else:
+            user = User(username=username, email=email)
+            session.add(user)
+            session.commit()
+            return user
 
     def __repr__(self):
         return f"\n<User " + \

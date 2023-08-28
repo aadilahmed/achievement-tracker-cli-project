@@ -25,7 +25,10 @@ class Cli():
         if(re.fullmatch(regex, email)):
             username = input("Please enter a username:")
             password = input("Please enter a password:")
-            new_user = User(username=username, email=email)
+            # insert user into table
+            new_user = User.find_or_create_by(username, email)
+            # go to user menu
+            self.user_menu()
         else:
             print(red("\n\nInvalid Email. Please try again.\n\n"))
             self.main()
@@ -36,10 +39,19 @@ class Cli():
         password = input("Password: ")
 
     def user_menu(self):
-        options = ["My Game List", "My Trophies" "All Games", "Sign Out"]
+        options = ["My Game List", "My Trophies", "All Games", "Sign Out"]
         terminal_menu = TerminalMenu(options)
         menu_entry_index = terminal_menu.show()
-        print(f"You have selected {options[menu_entry_index]}!")
+
+        if options[menu_entry_index] == "My Game List":
+            print("My Game List")
+        elif options[menu_entry_index] == "My Trophies":
+            print("My Trophies")
+        elif options[menu_entry_index] == "All Games":
+            print("All Games")
+        else:
+            print("Thank you for using Achievement Tracker!")
+            self.main()
 
 if __name__ == "__main__":
     print("Welcome to Achievement Tracker!\n\n")
