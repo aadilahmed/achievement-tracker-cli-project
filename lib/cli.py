@@ -4,7 +4,6 @@ from sqlalchemy.orm import sessionmaker
 from simple_term_menu import TerminalMenu
 from prettycli import red, green
 import re
-import time
 from header import Header
 
 header = Header()
