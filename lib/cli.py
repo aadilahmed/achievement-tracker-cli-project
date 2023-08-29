@@ -93,8 +93,8 @@ class Cli():
         if options[menu_entry_index] == "Back":
             self.show_game_list()
         else:
-            self.display_achievement_info(options[menu_entry_index])  
-
+            self.display_achievement_info(options[menu_entry_index])
+            
     def display_achievement_info(self, title):
         achievement = Achievement.find_by_title(title)
         print(f"{achievement.title} : {achievement.status}") 
