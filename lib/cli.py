@@ -5,6 +5,9 @@ from simple_term_menu import TerminalMenu
 from prettycli import red, green
 import re
 import time
+from header import Header
+
+header = Header()
 
 class Cli():
 
@@ -128,6 +131,7 @@ class Cli():
         return menu_entry_index
 
 if __name__ == "__main__":
-    print("  Welcome to Achievement Tracker!\n\n")
+    header.print_header()
+    print("\n\n  Welcome to Achievement Tracker!\n")
     app = Cli()
     app.main()
