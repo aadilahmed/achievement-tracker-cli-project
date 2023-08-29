@@ -8,6 +8,11 @@ A command line interface application allowing users to track video game achievem
 ## Installation Instructions
 Run the command `pipenv install` then `pipenv shell` to start the virtual environment. Move to the \lib directory and run the command `python cli.py` to start the application.
 
+## Screenshots
+<img src="screenshots/cli-app-screenshot-1.jpg">
+<img src="screenshots/cli-app-screenshot-2.jpg">
+<img src="screenshots/cli-app-screenshot-3.jpg">
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 

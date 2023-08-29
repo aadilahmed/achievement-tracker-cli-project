@@ -28,7 +28,7 @@ class Cli():
         email = input("  Please enter your email address: ")
 
         if(re.fullmatch(regex, email)):
-            username = input("  Please enter your username: ")
+            username = input("  Please enter your password: ")
             # insert user into table
             user = User.find_or_create_by(username, email)
             self.current_user = user
