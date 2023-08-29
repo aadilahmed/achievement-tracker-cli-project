@@ -18,7 +18,7 @@ Run the command `pipenv install` then `pipenv shell` to start the virtual enviro
 * show_all_games() : Shows a list of games which user can add to their personal game list
 * show_game_achievements() : Shows the achievement list for an individual game
 * display_achievement_info() : Displays detailed achievement info, including a description and status.
-* clear_terminal() and initialize_terminal_menu() : Helper method
+* clear_terminal() and initialize_terminal_menu() : Helper methods
 ### models.py
 * Contains the model classes for the users, games, and achievements tables
 ### header.py 
