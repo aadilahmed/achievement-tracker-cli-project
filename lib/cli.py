@@ -17,12 +17,12 @@ class Cli():
         menu_entry_index = terminal_menu.show()
 
         if options[menu_entry_index] == "Exit":
-            print("Thank you for using Achievement Tracker!")
+            print(green("Thank you for using Achievement Tracker!"))
         else:
-            self.clear_terminal()
             self.sign_in()
 
     def sign_in(self):
+        self.clear_terminal()
         regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
         email = input("Please enter your email address: ")
         if(re.fullmatch(regex, email)):
@@ -39,15 +39,14 @@ class Cli():
 
 
     def user_menu(self, user):
+        self.clear_terminal()
         print("\n\nMain Menu\n")
-        options = ["My Game List", "My Trophies", "All Games", "Sign Out"]
+        options = ["My Game List", "All Games", "Sign Out"]
         terminal_menu = TerminalMenu(options)
         menu_entry_index = terminal_menu.show()
 
         if options[menu_entry_index] == "My Game List":
             self.show_game_list()
-        elif options[menu_entry_index] == "My Trophies":
-            self.show_trophy_list()
         elif options[menu_entry_index] == "All Games":
             self.show_all_games()
         else:
@@ -56,6 +55,7 @@ class Cli():
 
 
     def show_game_list(self):
+        self.clear_terminal()
         print("\n\nMy Game List\n\n")
         games = self.current_user.games
         options = [game.title for game in games]
@@ -69,6 +69,7 @@ class Cli():
             self.show_game_achievements(options[menu_entry_index])
 
     def show_all_games(self):
+        self.clear_terminal()
         # print all the games in the games table to the terminal
         games = Game.get_all_games()
         terminal_menu = TerminalMenu(
@@ -84,6 +85,7 @@ class Cli():
         self.user_menu(self.current_user)
 
     def show_game_achievements(self, game):
+        self.clear_terminal()
         print(f"\n\n{game} Achievements\n")
         achievements = Game.get_all_achievements(game)
         options = [achievement.title for achievement in achievements]
@@ -97,6 +99,7 @@ class Cli():
             self.display_achievement_info(options[menu_entry_index], game)
 
     def display_achievement_info(self, title, game):
+        self.clear_terminal()
         achievement = Achievement.find_by_title(title)
         status = ""
         if achievement.status == "Unlocked":
@@ -121,14 +124,9 @@ class Cli():
                 achievement.status = "Unlocked"
             # return to achievement info page
             self.display_achievement_info(title, game)
-            
-
 
     def clear_terminal(self):
         print("\n" * 30)   
-
-    def show_trophy_list(self):
-        pass
 
 if __name__ == "__main__":
     print("Welcome to Achievement Tracker!\n\n")
