@@ -2,7 +2,7 @@ from db.models import User, Game, Achievement
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from simple_term_menu import TerminalMenu
-from prettycli import red
+from prettycli import red, green
 import re
 import time
 
@@ -19,6 +19,7 @@ class Cli():
         if options[menu_entry_index] == "Exit":
             print("Thank you for using Achievement Tracker!")
         else:
+            self.clear_terminal()
             self.sign_in()
 
     def sign_in(self):
@@ -93,12 +94,38 @@ class Cli():
         if options[menu_entry_index] == "Back":
             self.show_game_list()
         else:
-            self.display_achievement_info(options[menu_entry_index])
-            
-    def display_achievement_info(self, title):
+            self.display_achievement_info(options[menu_entry_index], game)
+
+    def display_achievement_info(self, title, game):
         achievement = Achievement.find_by_title(title)
-        print(f"{achievement.title} : {achievement.status}") 
-        print(f"{achievement.description}")       
+        status = ""
+        if achievement.status == "Unlocked":
+            status = green(f"{achievement.status}")
+        else:
+            status = red(f"{achievement.status}")
+                    
+        print(f"{achievement.title} : " + status) 
+        print(f"{achievement.description}") 
+
+        options = ["Lock/Unlock Achievement", "Back"]
+        terminal_menu = TerminalMenu(options)
+        menu_entry_index = terminal_menu.show()
+
+        if options[menu_entry_index] == "Back":
+            self.show_game_achievements(game)
+        else:
+            # change status
+            if achievement.status == "Unlocked":
+                achievement.status = "Locked"
+            else:
+                achievement.status = "Unlocked"
+            # return to achievement info page
+            self.display_achievement_info(title, game)
+            
+
+
+    def clear_terminal(self):
+        print("\n" * 30)   
 
     def show_trophy_list(self):
         pass
