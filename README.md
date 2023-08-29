@@ -5,6 +5,9 @@ A command line interface application allowing users to track video game achievem
 * Sign in and create an account to add games to your games list
 * Track completion of each video game's achievements. Set an achievement as "Unlocked" once you've completed it. 
 
+## Installation Instructions
+Run the command `pipenv install` then `pipenv shell` to start the virtual environment. Move to the \lib directory and run the command `python cli.py` to start the application.
+
 ## Files
 ### cli.py 
 * Contains the script for running the cli application. 
@@ -20,9 +23,6 @@ A command line interface application allowing users to track video game achievem
 * Contains the model classes for the users, games, and achievements tables
 ### header.py 
 * Contains the ASCII art for the title header of the start menu
-
-## Installation Instructions
-Run the command `pipenv install` then `pipenv shell` to start the virtual environment. Move to the \lib directory and run the command `python cli.py` to start the application.
 
 ## Screenshots
 <img src="screenshots/cli-app-screenshot-1.jpg">
