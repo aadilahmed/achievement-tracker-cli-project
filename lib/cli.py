@@ -13,20 +13,20 @@ class Cli():
 
     def main(self):
         options = ["Sign In", "Exit"]
-        terminal_menu = TerminalMenu(options)
-        menu_entry_index = terminal_menu.show()
+        menu_entry_index = self.initialize_terminal_menu(options)
 
         if options[menu_entry_index] == "Exit":
-            print(green("Thank you for using Achievement Tracker!"))
+            print(green("  Thank you for using Achievement Tracker!"))
         else:
             self.sign_in()
 
     def sign_in(self):
         self.clear_terminal()
         regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
-        email = input("Please enter your email address: ")
+        email = input("  Please enter your email address: ")
+
         if(re.fullmatch(regex, email)):
-            username = input("Please enter your username: ")
+            username = input("  Please enter your username: ")
             # insert user into table
             user = User.find_or_create_by(username, email)
             self.current_user = user
@@ -40,10 +40,9 @@ class Cli():
 
     def user_menu(self, user):
         self.clear_terminal()
-        print("\n\nMain Menu\n")
+        print("\n\n  Main Menu\n")
         options = ["My Game List", "All Games", "Sign Out"]
-        terminal_menu = TerminalMenu(options)
-        menu_entry_index = terminal_menu.show()
+        menu_entry_index = self.initialize_terminal_menu(options)
 
         if options[menu_entry_index] == "My Game List":
             self.show_game_list()
@@ -56,12 +55,11 @@ class Cli():
 
     def show_game_list(self):
         self.clear_terminal()
-        print("\n\nMy Game List\n\n")
+        print("\n\n  My Game List\n\n")
         games = self.current_user.games
         options = [game.title for game in games]
         options.append("Back")
-        terminal_menu = TerminalMenu(options)
-        menu_entry_index = terminal_menu.show()
+        menu_entry_index = self.initialize_terminal_menu(options)
 
         if options[menu_entry_index] == "Back":
             self.user_menu(self.current_user)
@@ -78,20 +76,17 @@ class Cli():
         show_multi_select_hint=True,
         )
         menu_entry_indices = terminal_menu.show()
-        print(menu_entry_indices)
-        print(terminal_menu.chosen_menu_entries)
 
         Game.append_games_to_user(self.current_user, menu_entry_indices)
         self.user_menu(self.current_user)
 
     def show_game_achievements(self, game):
         self.clear_terminal()
-        print(f"\n\n{game} Achievements\n")
+        print(f"\n\n  {game} Achievements\n")
         achievements = Game.get_all_achievements(game)
         options = [achievement.title for achievement in achievements]
         options.append("Back")
-        terminal_menu = TerminalMenu(options)
-        menu_entry_index = terminal_menu.show()
+        menu_entry_index = self.initialize_terminal_menu(options)
 
         if options[menu_entry_index] == "Back":
             self.show_game_list()
@@ -107,12 +102,11 @@ class Cli():
         else:
             status = red(f"{achievement.status}")
                     
-        print(f"{achievement.title} : " + status) 
-        print(f"{achievement.description}") 
+        print(f"  {achievement.title} : " + status) 
+        print(f"  {achievement.description}") 
 
         options = ["Lock/Unlock Achievement", "Back"]
-        terminal_menu = TerminalMenu(options)
-        menu_entry_index = terminal_menu.show()
+        menu_entry_index = self.initialize_terminal_menu(options)
 
         if options[menu_entry_index] == "Back":
             self.show_game_achievements(game)
@@ -128,7 +122,12 @@ class Cli():
     def clear_terminal(self):
         print("\n" * 30)   
 
+    def initialize_terminal_menu(self, options):
+        terminal_menu = TerminalMenu(options)
+        menu_entry_index = terminal_menu.show()
+        return menu_entry_index
+
 if __name__ == "__main__":
-    print("Welcome to Achievement Tracker!\n\n")
+    print("  Welcome to Achievement Tracker!\n\n")
     app = Cli()
     app.main()
